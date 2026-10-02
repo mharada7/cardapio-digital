@@ -186,6 +186,9 @@ const totalCarrinho = document.getElementById('total-carrinho');
 const botaoFechar = document.getElementById('fechar-carrinho');
 const botaoEsvaziar = document.getElementById('esvaziar-carrinho');
 const botaoEnviar = document.getElementById('enviar-pedido');
+const dadosRetirada = document.getElementById('dados-retirada');
+const campoNome = document.getElementById('nome-cliente');
+const erroNome = document.getElementById('erro-nome');
 
 // Acha o item completo (nome, preço...) no cardápio a partir do id
 function buscarItem(id) {
@@ -207,6 +210,9 @@ function mostrarCarrinho() {
   // "Enviar" e "Esvaziar" só aparecem quando há algo no carrinho
   botaoEnviar.hidden = carrinho.length === 0;
   botaoEsvaziar.hidden = carrinho.length === 0;
+
+  // o campo de nome só aparece no modo retirada (sem mesa) e com itens no carrinho
+  dadosRetirada.hidden = carrinho.length === 0 || numeroMesa !== null;
 
   // carrinho vazio: mostra um aviso no lugar das linhas
   if (carrinho.length === 0) {
@@ -289,7 +295,7 @@ botaoEsvaziar.addEventListener('click', function () {
 });
 
 // Monta o texto do pedido que vai para o WhatsApp
-function montarMensagem() {
+function montarMensagem(nomeCliente) {
   const linhas = [];
 
   linhas.push('*Novo pedido - Café Aconchego*');
@@ -297,7 +303,7 @@ function montarMensagem() {
   if (numeroMesa !== null) {
     linhas.push('📍 ' + formatarMesa(numeroMesa));
   } else {
-    linhas.push('📍 Mesa não informada');
+    linhas.push('🛍️ Retirada no balcão: ' + nomeCliente);
   }
 
   linhas.push('');  // linha em branco
@@ -316,9 +322,23 @@ function montarMensagem() {
 
 // Abre o WhatsApp com a mensagem pronta
 botaoEnviar.addEventListener('click', function () {
-  const mensagem = montarMensagem();
+  const nomeCliente = campoNome.value.trim();
+
+  // modo retirada sem nome: avisa, coloca o cursor no campo e não envia
+  if (numeroMesa === null && nomeCliente === '') {
+    erroNome.hidden = false;
+    campoNome.focus();
+    return;
+  }
+
+  const mensagem = montarMensagem(nomeCliente);
   const link = 'https://wa.me/' + WHATSAPP_NUMERO + '?text=' + encodeURIComponent(mensagem);
   window.open(link, '_blank');  // abre numa nova aba (ou no app, no celular)
+});
+
+// Assim que o cliente começa a digitar o nome, o aviso de erro some
+campoNome.addEventListener('input', function () {
+  erroNome.hidden = true;
 });
 
 // Abrir e fechar o painel

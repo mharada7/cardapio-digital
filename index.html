@@ -61,6 +61,15 @@
       <strong id="total-carrinho">R$ 0,00</strong>
     </div>
 
+    <!-- Modo retirada: só aparece quando a URL NÃO tem ?mesa= -->
+    <div id="dados-retirada" class="dados-retirada" hidden>
+      <p>🛍️ Pedido para <strong>retirar no balcão</strong></p>
+      <label for="nome-cliente">Seu nome</label>
+      <input type="text" id="nome-cliente" class="campo-nome"
+             placeholder="Ex.: Maria" autocomplete="given-name" maxlength="40">
+      <p id="erro-nome" class="erro" hidden>Digite seu nome para enviar o pedido.</p>
+    </div>
+
     <button type="button" id="enviar-pedido" class="botao-enviar">📲 Enviar pedido pelo WhatsApp</button>
 
     <button type="button" id="esvaziar-carrinho" class="botao-esvaziar">🗑️ Esvaziar carrinho</button>
