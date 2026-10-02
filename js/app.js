@@ -1,5 +1,8 @@
 // Lógica principal do cardápio.
 
+// Configuração: WhatsApp que recebe os pedidos (55 + DDD + número, só dígitos)
+const WHATSAPP_NUMERO = '5592992282487';
+
 // 1. Encontra no HTML a caixa onde os cards vão ficar
 const listaItens = document.getElementById('lista-itens');
 
@@ -182,6 +185,7 @@ const listaCarrinho = document.getElementById('lista-carrinho');
 const totalCarrinho = document.getElementById('total-carrinho');
 const botaoFechar = document.getElementById('fechar-carrinho');
 const botaoEsvaziar = document.getElementById('esvaziar-carrinho');
+const botaoEnviar = document.getElementById('enviar-pedido');
 
 // Acha o item completo (nome, preço...) no cardápio a partir do id
 function buscarItem(id) {
@@ -200,7 +204,8 @@ function calcularTotal() {
 
 // Desenha as linhas do carrinho e o total dentro do painel
 function mostrarCarrinho() {
-  // "Esvaziar" só aparece quando há algo para esvaziar
+  // "Enviar" e "Esvaziar" só aparecem quando há algo no carrinho
+  botaoEnviar.hidden = carrinho.length === 0;
   botaoEsvaziar.hidden = carrinho.length === 0;
 
   // carrinho vazio: mostra um aviso no lugar das linhas
@@ -283,6 +288,39 @@ botaoEsvaziar.addEventListener('click', function () {
   mostrarCarrinho();
 });
 
+// Monta o texto do pedido que vai para o WhatsApp
+function montarMensagem() {
+  const linhas = [];
+
+  linhas.push('*Novo pedido - Café Aconchego*');
+
+  if (numeroMesa !== null) {
+    linhas.push('📍 ' + formatarMesa(numeroMesa));
+  } else {
+    linhas.push('📍 Mesa não informada');
+  }
+
+  linhas.push('');  // linha em branco
+
+  carrinho.forEach(function (linha) {
+    const item = buscarItem(linha.id);
+    const subtotal = formatarPreco(item.preco * linha.quantidade);
+    linhas.push(linha.quantidade + 'x ' + item.nome + ' - ' + subtotal);
+  });
+
+  linhas.push('');
+  linhas.push('*Total: ' + formatarPreco(calcularTotal()) + '*');
+
+  return linhas.join('\n');  // junta tudo, uma linha embaixo da outra
+}
+
+// Abre o WhatsApp com a mensagem pronta
+botaoEnviar.addEventListener('click', function () {
+  const mensagem = montarMensagem();
+  const link = 'https://wa.me/' + WHATSAPP_NUMERO + '?text=' + encodeURIComponent(mensagem);
+  window.open(link, '_blank');  // abre numa nova aba (ou no app, no celular)
+});
+
 // Abrir e fechar o painel
 botaoCarrinho.addEventListener('click', function () {
   mostrarCarrinho();
@@ -322,6 +360,11 @@ function lerMesaDaUrl() {
 
 const numeroMesa = lerMesaDaUrl();
 
+// Transforma 4 em "Mesa 04" (usado no cabeçalho e na mensagem do WhatsApp)
+function formatarMesa(numero) {
+  return 'Mesa ' + String(numero).padStart(2, '0');
+}
+
 // Mostra "📍 Mesa 04" no cabeçalho (ou deixa escondido, se não houver mesa)
 function mostrarMesa() {
   const elementoMesa = document.getElementById('mesa');
@@ -332,7 +375,7 @@ function mostrarMesa() {
   }
 
   // textContent (e não innerHTML): o que vem da URL nunca vira HTML
-  elementoMesa.textContent = '📍 Mesa ' + String(numeroMesa).padStart(2, '0');
+  elementoMesa.textContent = '📍 ' + formatarMesa(numeroMesa);
   elementoMesa.hidden = false;
 }
 

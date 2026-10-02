@@ -79,7 +79,7 @@ Cada versão é pequena, testável e termina com um commit feito pelo Matheus.
       feito pelo botão −).
 
 ### Pedido
-- [ ] **v0.7 Mesa via URL:** ler `?mesa=` com `URLSearchParams` e mostrar
+- [x] **v0.7 Mesa via URL:** ler `?mesa=` com `URLSearchParams` e mostrar
       "Mesa 04" no cabeçalho.
 - [ ] **v0.8 Pedido pelo WhatsApp:** montar a mensagem (mesa, itens, quantidades,
       total) e abrir `https://wa.me/<numero>?text=...` com `encodeURIComponent`.
@@ -136,10 +136,18 @@ Cada versão é pequena, testável e termina com um commit feito pelo Matheus.
     carrinho vazio.
   - Elementos com `display` próprio que usam `hidden` precisam da regra
     `[hidden] { display: none; }` no CSS.
+- **v0.7 concluída (mesa):**
+  - `const numeroMesa = lerMesaDaUrl()` (`URLSearchParams`). Só aceita inteiros de
+    1 a 99; caso contrário, `null`.
+  - `mostrarMesa()` preenche `<p id="mesa">` no cabeçalho ("📍 Mesa 04", com
+    `padStart`) ou deixa escondido.
+  - **Segurança:** dado vindo de fora (URL, usuário) → validar + `textContent`,
+    nunca `innerHTML` (XSS). `innerHTML` só com dados nossos (`dados.js`).
 - `css/style.css`: variáveis de cor, cabeçalho, grade de cards (CSS Grid `auto-fill`
   + `minmax(250px, 1fr)`), botões-pílula de categoria, campo de busca, botão
-  flutuante e painel do carrinho (seções numeradas de 1 a 13).
+  flutuante, painel do carrinho e pílula da mesa (seções numeradas de 1 a 14).
 - Fotos vêm do Unsplash por link. Antes de usar uma foto nova, conferir se ela
   carrega (já houve link quebrado) e se combina com o item. Ideia para a v1.0:
   baixar as fotos para uma pasta `img/`.
-- Próximo passo: **v0.7** (número da mesa via `?mesa=`).
+- Próximo passo: **v0.8** (pedido pelo WhatsApp). Número de demonstração ainda
+  a definir pelo Matheus (o número fica público no repositório e no site).

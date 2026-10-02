@@ -6,6 +6,7 @@
   --cor-destaque: #d98a28;  /* caramelo */
   --cor-preco: #a4551a;     /* caramelo escuro: mais legível sobre o branco */
   --cor-card: #ffffff;      /* fundo dos cards */
+  --cor-whatsapp: #1f7a4d;  /* verde escuro: lembra o WhatsApp e mantém bom contraste com o branco */
 
   --fonte-titulo: 'Playfair Display', Georgia, serif;
   --fonte-texto: 'Inter', system-ui, sans-serif;
@@ -371,5 +372,29 @@ main {
 
 /* De novo a regra do hidden: o "display: inline-block" venceria o atributo */
 .mesa[hidden] {
+  display: none;
+}
+
+/* ===== 15. Botão "Enviar pedido pelo WhatsApp" ===== */
+.botao-enviar {
+  display: block;
+  width: 100%;  /* ação principal do painel: ocupa a largura toda */
+  margin-top: 20px;
+  padding: 14px;
+  border: none;
+  border-radius: 999px;
+  background-color: var(--cor-whatsapp);
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.botao-enviar:hover {
+  filter: brightness(1.1);  /* clareia um pouco */
+}
+
+.botao-enviar[hidden] {
   display: none;
 }
