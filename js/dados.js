@@ -24,13 +24,13 @@ const itensCardapio = [
     nome: 'Tosta de Abacate & Ovo',
     descricao: 'Pão artesanal tostado com creme de abacate, ovo pochê e gergelim.',
     preco: 32.90,
-    imagem: 'https://images.unsplash.com/photo-1484723091739-30990ca11f05?w=600&q=80',
+    imagem: 'https://images.unsplash.com/photo-1541519227354-08fa5d50c44d?w=600&q=80',
     categoria: 'sanduiches'
   },
   {
     id: 4,
-    nome: 'Bolo de Cenoura com Brigadeiro',
-    descricao: 'Fatia generosa de bolo de cenoura fofinho com brigadeiro cremoso.',
+    nome: 'Bolo de Framboesa',
+    descricao: 'Fatia de bolo em camadas com creme suave e framboesas frescas.',
     preco: 18.00,
     imagem: 'https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=600&q=80',
     categoria: 'doces'

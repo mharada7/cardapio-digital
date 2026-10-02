@@ -13,9 +13,11 @@ function criarCard(item) {
   return `
     <article class="card">
       <img src="${item.imagem}" alt="${item.nome}">
-      <h2>${item.nome}</h2>
-      <p>${item.descricao}</p>
-      <strong>${formatarPreco(item.preco)}</strong>
+      <div class="card-info">
+        <h2>${item.nome}</h2>
+        <p>${item.descricao}</p>
+        <strong>${formatarPreco(item.preco)}</strong>
+      </div>
     </article>
   `;
 }
