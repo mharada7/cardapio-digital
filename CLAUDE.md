@@ -67,7 +67,7 @@ Cada versão é pequena, testável e termina com um commit feito pelo Matheus.
 - [x] **v0.3 Categorias:** completar o array (17 itens, 5 categorias, adaptados da
       versão React para combinar com as fotos). Abas "Todos / Cafés / Sanduíches / Doces / Bebidas / Especiais"
       filtram os cards.
-- [ ] **v0.4 Busca:** campo de busca por nome ou descrição, combinado com a categoria
+- [x] **v0.4 Busca:** campo de busca por nome ou descrição, combinado com a categoria
       escolhida. Mensagem de "nenhum item encontrado".
 
 ### Carrinho
@@ -88,6 +88,7 @@ Cada versão é pequena, testável e termina com um commit feito pelo Matheus.
 - [ ] Modo escuro (botão + preferência do sistema + `localStorage`)
 - [ ] Gerador de QR Code por mesa (biblioteca via CDN)
 - [ ] Filtros alimentares: Vegano, Sem Glúten, Sem Lactose, Mais Pedidos
+- [ ] Busca que ignora acentos ("cafe" encontra "Café")
 - [ ] Modal de produto com opções (tipo de leite, tamanho) e observações
 - [ ] Botão "Chamar garçom / Pedir a conta" (simulado)
 - [ ] Simulação de status do pedido: Recebido → Em preparo → Pronto
@@ -99,13 +100,20 @@ Cada versão é pequena, testável e termina com um commit feito pelo Matheus.
 - **v0.3 concluída:** `js/dados.js` tem 17 itens (categorias: `cafes`,
   `sanduiches`, `doces`, `bebidas`, `especiais`). No `index.html`, os botões
   `<nav class="categorias">` usam `data-categoria` com esses mesmos valores (+ `todos`).
-- `js/app.js`: `mostrarItens(itens)` desenha os cards (`forEach` + template string);
-  `filtrarPorCategoria(categoria)` usa `filter`; cada botão tem um
-  `addEventListener('click')` que move a classe `ativa` e redesenha a lista.
+- **v0.4 concluída:** campo `<input type="search" id="campo-busca">` acima das
+  categorias.
+- `js/app.js`:
+  - **Estado** no topo: `categoriaAtual` e `textoBusca`.
+  - `atualizarLista()` é o único ponto que redesenha: aplica
+    `filtrarPorCategoria(categoriaAtual)` e depois `filtrarPorBusca(itens, textoBusca)`
+    (nome/descrição, `toLowerCase` + `includes`).
+  - `mostrarItens(itens)` desenha os cards (`forEach` + template string) ou mostra a
+    mensagem `.sem-resultados` quando a lista está vazia.
+  - Eventos: `click` nos botões (move a classe `ativa`) e `input` no campo de busca.
+    Os dois só atualizam o estado e chamam `atualizarLista()`.
 - `css/style.css`: variáveis de cor, cabeçalho, grade de cards (CSS Grid `auto-fill`
-  + `minmax(250px, 1fr)`) e botões-pílula de categoria.
+  + `minmax(250px, 1fr)`), botões-pílula de categoria e campo de busca.
 - Fotos vêm do Unsplash por link. Antes de usar uma foto nova, conferir se ela
   carrega (já houve link quebrado) e se combina com o item. Ideia para a v1.0:
   baixar as fotos para uma pasta `img/`.
-- Próximo passo: **v0.4** (busca). A busca precisa se combinar com a categoria
-  ativa, então vamos guardar a categoria atual numa variável.
+- Próximo passo: **v0.5** (carrinho básico).
