@@ -20,6 +20,16 @@
   </header>
 
   <main>
+    <!-- Botões de categoria: o data-categoria precisa ser igual ao "categoria" do dados.js -->
+    <nav class="categorias" aria-label="Categorias do cardápio">
+      <button type="button" class="categoria ativa" data-categoria="todos">🍽️ Todos</button>
+      <button type="button" class="categoria" data-categoria="cafes">☕ Cafés</button>
+      <button type="button" class="categoria" data-categoria="sanduiches">🥪 Sanduíches</button>
+      <button type="button" class="categoria" data-categoria="doces">🍰 Doces</button>
+      <button type="button" class="categoria" data-categoria="bebidas">🥤 Bebidas</button>
+      <button type="button" class="categoria" data-categoria="especiais">🌟 Especiais</button>
+    </nav>
+
     <!-- Os itens do cardápio serão criados aqui pelo JavaScript -->
     <section id="lista-itens"></section>
   </main>

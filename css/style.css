@@ -101,3 +101,34 @@ main {
   color: var(--cor-preco);
   font-size: 1.1rem;
 }
+
+/* ===== 7. Botões de categoria ===== */
+.categorias {
+  display: flex;      /* coloca os botões lado a lado */
+  gap: 8px;
+  overflow-x: auto;   /* no celular, se não couber, rola para o lado */
+  padding-bottom: 8px;
+  margin-bottom: 20px;
+}
+
+.categoria {
+  flex-shrink: 0;           /* o botão não encolhe nem quebra o texto */
+  font-family: inherit;     /* botões não herdam a fonte sozinhos */
+  font-size: 0.95rem;
+  padding: 8px 16px;
+  border: 1px solid var(--cor-marrom);
+  border-radius: 999px;     /* formato de pílula */
+  background-color: transparent;
+  color: var(--cor-marrom);
+  cursor: pointer;          /* mãozinha ao passar o mouse */
+}
+
+.categoria:hover {
+  background-color: rgba(108, 57, 25, 0.08);  /* marrom bem clarinho */
+}
+
+/* O botão da categoria escolhida fica "preenchido" */
+.categoria.ativa {
+  background-color: var(--cor-marrom);
+  color: var(--cor-fundo);
+}

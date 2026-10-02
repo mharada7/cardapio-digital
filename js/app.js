@@ -33,5 +33,34 @@ function mostrarItens(itens) {
   listaItens.innerHTML = html;
 }
 
-// 5. Começa tudo: mostra o cardápio completo
+// 5. Devolve só os itens da categoria escolhida ("todos" devolve a lista inteira)
+function filtrarPorCategoria(categoria) {
+  if (categoria === 'todos') {
+    return itensCardapio;
+  }
+
+  return itensCardapio.filter(function (item) {
+    return item.categoria === categoria;
+  });
+}
+
+// 6. Faz cada botão de categoria "escutar" o clique
+const botoesCategoria = document.querySelectorAll('.categoria');
+
+botoesCategoria.forEach(function (botao) {
+  botao.addEventListener('click', function () {
+    // tira o destaque de todos os botões...
+    botoesCategoria.forEach(function (outroBotao) {
+      outroBotao.classList.remove('ativa');
+    });
+    // ...e coloca só no botão clicado
+    botao.classList.add('ativa');
+
+    // lê o data-categoria do botão e mostra os itens filtrados
+    const categoria = botao.dataset.categoria;
+    mostrarItens(filtrarPorCategoria(categoria));
+  });
+});
+
+// 7. Começa tudo: mostra o cardápio completo
 mostrarItens(itensCardapio);
