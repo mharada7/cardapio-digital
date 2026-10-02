@@ -64,8 +64,8 @@ Cada versão é pequena, testável e termina com um commit feito pelo Matheus.
       seguinte já fique no ar.
 
 ### Navegação
-- [ ] **v0.3 Categorias:** completar o array (cerca de 20 itens, 5 categorias, como na
-      versão React). Abas "Todos / Cafés / Sanduíches / Doces / Bebidas / Especiais"
+- [x] **v0.3 Categorias:** completar o array (17 itens, 5 categorias, adaptados da
+      versão React para combinar com as fotos). Abas "Todos / Cafés / Sanduíches / Doces / Bebidas / Especiais"
       filtram os cards.
 - [ ] **v0.4 Busca:** campo de busca por nome ou descrição, combinado com a categoria
       escolhida. Mensagem de "nenhum item encontrado".
@@ -96,10 +96,16 @@ Cada versão é pequena, testável e termina com um commit feito pelo Matheus.
 - **v0.2 concluída e publicada:** https://mharada7.github.io/cardapio-digital/
   (repositório: https://github.com/mharada7/cardapio-digital, branch `main`,
   GitHub Pages servindo a raiz da `main`).
-- `js/dados.js` tem 6 itens; `js/app.js` usa `mostrarItens(itens)` para desenhar
-  os cards (`forEach` + template string); `css/style.css` tem as variáveis de cor,
-  o cabeçalho e a grade de cards (CSS Grid `auto-fill` + `minmax(250px, 1fr)`).
+- **v0.3 concluída:** `js/dados.js` tem 17 itens (categorias: `cafes`,
+  `sanduiches`, `doces`, `bebidas`, `especiais`). No `index.html`, os botões
+  `<nav class="categorias">` usam `data-categoria` com esses mesmos valores (+ `todos`).
+- `js/app.js`: `mostrarItens(itens)` desenha os cards (`forEach` + template string);
+  `filtrarPorCategoria(categoria)` usa `filter`; cada botão tem um
+  `addEventListener('click')` que move a classe `ativa` e redesenha a lista.
+- `css/style.css`: variáveis de cor, cabeçalho, grade de cards (CSS Grid `auto-fill`
+  + `minmax(250px, 1fr)`) e botões-pílula de categoria.
 - Fotos vêm do Unsplash por link. Antes de usar uma foto nova, conferir se ela
   carrega (já houve link quebrado) e se combina com o item. Ideia para a v1.0:
   baixar as fotos para uma pasta `img/`.
-- Próximo passo: **v0.3** (categorias).
+- Próximo passo: **v0.4** (busca). A busca precisa se combinar com a categoria
+  ativa, então vamos guardar a categoria atual numa variável.
