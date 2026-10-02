@@ -71,8 +71,9 @@ Cada versão é pequena, testável e termina com um commit feito pelo Matheus.
       escolhida. Mensagem de "nenhum item encontrado".
 
 ### Carrinho
-- [ ] **v0.5 Carrinho básico:** botão "Adicionar" em cada card, contador no
-      cabeçalho e lista com itens, quantidades (+/−) e total.
+- [x] **v0.5 Carrinho básico:** botão "Adicionar" em cada card, botão flutuante
+      com contador (no lugar do contador no cabeçalho) e painel `<dialog>` com
+      itens, quantidades (+/−) e total.
 - [ ] **v0.6 Carrinho persistente:** salvar no `localStorage` (o carrinho não some ao
       recarregar a página), botão de remover item e de esvaziar o carrinho.
 
@@ -111,9 +112,22 @@ Cada versão é pequena, testável e termina com um commit feito pelo Matheus.
     mensagem `.sem-resultados` quando a lista está vazia.
   - Eventos: `click` nos botões (move a classe `ativa`) e `input` no campo de busca.
     Os dois só atualizam o estado e chamam `atualizarLista()`.
+- **v0.5 concluída (carrinho):**
+  - Estado `carrinho = [{ id, quantidade }]`: guarda só o `id`. Nome e preço vêm
+    sempre do `itensCardapio` via `buscarItem(id)` (fonte única da verdade).
+  - `adicionarAoCarrinho(id)` (`find`: soma 1 ou cria a linha) e
+    `diminuirDoCarrinho(id)` (tira 1; se chegar a 0, remove a linha com `filter`).
+  - `atualizarContador()` atualiza o botão flutuante `#botao-carrinho` (some com
+    `hidden` quando está vazio). `mostrarCarrinho()` desenha o `<dialog
+    id="painel-carrinho">`. `calcularTotal()` usa `reduce`.
+  - Cliques usam **delegação de eventos**: um ouvinte em `#lista-itens` (botões
+    "Adicionar", com `data-id`) e outro em `#lista-carrinho` (botões +/−, com
+    `data-acao` + `data-id`). `Number(dataset.id)` é obrigatório (o dataset é texto).
+  - Regra: depois de mudar o estado, sempre redesenhar a tela.
 - `css/style.css`: variáveis de cor, cabeçalho, grade de cards (CSS Grid `auto-fill`
-  + `minmax(250px, 1fr)`), botões-pílula de categoria e campo de busca.
+  + `minmax(250px, 1fr)`), botões-pílula de categoria, campo de busca, botão
+  flutuante e painel do carrinho (seções numeradas de 1 a 12).
 - Fotos vêm do Unsplash por link. Antes de usar uma foto nova, conferir se ela
   carrega (já houve link quebrado) e se combina com o item. Ideia para a v1.0:
   baixar as fotos para uma pasta `img/`.
-- Próximo passo: **v0.5** (carrinho básico).
+- Próximo passo: **v0.6** (carrinho persistente com `localStorage`).

@@ -338,3 +338,22 @@ main {
   padding: 24px 0;
   opacity: 0.7;
 }
+
+/* ===== 13. Botão "Esvaziar carrinho" ===== */
+.botao-esvaziar {
+  display: block;
+  margin: 16px auto 0;  /* centralizado, abaixo do total */
+  padding: 8px;
+  border: none;
+  background-color: transparent;
+  color: var(--cor-marrom);
+  font-family: inherit;
+  font-size: 0.9rem;
+  text-decoration: underline;  /* aparência de link: ação secundária, discreta */
+  cursor: pointer;
+}
+
+/* Mesma armadilha da seção 10: o "display: block" venceria o atributo hidden */
+.botao-esvaziar[hidden] {
+  display: none;
+}

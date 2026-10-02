@@ -116,7 +116,7 @@ function adicionarAoCarrinho(id) {
     carrinho.push({ id: id, quantidade: 1 });
   }
 
-  atualizarContador();
+  carrinhoMudou();
 }
 
 // Soma as quantidades de todas as linhas e mostra no botão flutuante
@@ -132,6 +132,37 @@ function atualizarContador() {
 
   contadorCarrinho.textContent = totalDeUnidades;
   botaoCarrinho.hidden = totalDeUnidades === 0;  // esconde quando está vazio
+}
+
+// Guardar o carrinho no navegador (localStorage), para não sumir ao recarregar
+const CHAVE_CARRINHO = 'cafe-aconchego-carrinho';
+
+function salvarCarrinho() {
+  try {
+    localStorage.setItem(CHAVE_CARRINHO, JSON.stringify(carrinho));
+  } catch (erro) {
+    // navegador bloqueou o armazenamento (ex.: aba anônima): o site segue funcionando
+  }
+}
+
+function carregarCarrinho() {
+  try {
+    const textoSalvo = localStorage.getItem(CHAVE_CARRINHO);
+    if (textoSalvo) {
+      // descarta linhas de itens que não existem mais no cardápio
+      carrinho = JSON.parse(textoSalvo).filter(function (linha) {
+        return buscarItem(linha.id);
+      });
+    }
+  } catch (erro) {
+    carrinho = [];  // algo deu errado ao ler: começa com o carrinho vazio
+  }
+}
+
+// Chamada sempre que o carrinho muda: salva e atualiza o contador
+function carrinhoMudou() {
+  salvarCarrinho();
+  atualizarContador();
 }
 
 // Um único "ouvinte" na lista cuida dos cliques em TODOS os botões "Adicionar"
@@ -150,6 +181,7 @@ const painelCarrinho = document.getElementById('painel-carrinho');
 const listaCarrinho = document.getElementById('lista-carrinho');
 const totalCarrinho = document.getElementById('total-carrinho');
 const botaoFechar = document.getElementById('fechar-carrinho');
+const botaoEsvaziar = document.getElementById('esvaziar-carrinho');
 
 // Acha o item completo (nome, preço...) no cardápio a partir do id
 function buscarItem(id) {
@@ -168,6 +200,9 @@ function calcularTotal() {
 
 // Desenha as linhas do carrinho e o total dentro do painel
 function mostrarCarrinho() {
+  // "Esvaziar" só aparece quando há algo para esvaziar
+  botaoEsvaziar.hidden = carrinho.length === 0;
+
   // carrinho vazio: mostra um aviso no lugar das linhas
   if (carrinho.length === 0) {
     listaCarrinho.innerHTML = '<li class="carrinho-vazio">Seu carrinho está vazio. ☕</li>';
@@ -215,7 +250,7 @@ function diminuirDoCarrinho(id) {
     });
   }
 
-  atualizarContador();
+  carrinhoMudou();
 }
 
 // Um único "ouvinte" no painel cuida de todos os botões + e −
@@ -236,6 +271,18 @@ listaCarrinho.addEventListener('click', function (evento) {
   mostrarCarrinho();  // redesenha o painel com os valores novos
 });
 
+// Esvaziar o carrinho inteiro (com confirmação, para evitar toques acidentais)
+botaoEsvaziar.addEventListener('click', function () {
+  const confirmou = confirm('Tem certeza que deseja esvaziar o carrinho?');
+  if (!confirmou) {
+    return;  // clicou em "Cancelar": não faz nada
+  }
+
+  carrinho = [];
+  carrinhoMudou();
+  mostrarCarrinho();
+});
+
 // Abrir e fechar o painel
 botaoCarrinho.addEventListener('click', function () {
   mostrarCarrinho();
@@ -253,5 +300,7 @@ painelCarrinho.addEventListener('click', function (evento) {
   }
 });
 
-// 10. Começa tudo: mostra o cardápio completo
+// 10. Começa tudo: recupera o carrinho salvo e mostra o cardápio completo
+carregarCarrinho();
+atualizarContador();
 atualizarLista();
