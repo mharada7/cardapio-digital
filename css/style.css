@@ -132,3 +132,30 @@ main {
   background-color: var(--cor-marrom);
   color: var(--cor-fundo);
 }
+
+/* ===== 8. Campo de busca ===== */
+.busca {
+  width: 100%;
+  font-family: inherit;
+  font-size: 1rem;  /* 16px: abaixo disso, o iPhone dá zoom sozinho ao tocar no campo */
+  padding: 12px 16px;
+  border: 1px solid var(--cor-marrom);
+  border-radius: 999px;
+  background-color: var(--cor-card);
+  color: var(--cor-texto);
+  margin-bottom: 16px;
+}
+
+/* Destaque quando o campo está selecionado (importante para quem usa teclado) */
+.busca:focus {
+  outline: 2px solid var(--cor-destaque);
+  outline-offset: 2px;
+}
+
+/* Mensagem de "nenhum item encontrado" */
+.sem-resultados {
+  grid-column: 1 / -1;  /* ocupa a largura inteira da grade, e não só uma coluna */
+  text-align: center;
+  padding: 40px 16px;
+  opacity: 0.7;
+}

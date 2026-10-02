@@ -3,6 +3,10 @@
 // 1. Encontra no HTML a caixa onde os cards vão ficar
 const listaItens = document.getElementById('lista-itens');
 
+// Estado: o que o cliente escolheu (muda conforme ele usa a página)
+let categoriaAtual = 'todos';
+let textoBusca = '';
+
 // 2. Transforma um número (18.9) em texto de dinheiro ("R$ 18,90")
 function formatarPreco(valor) {
   return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -24,6 +28,12 @@ function criarCard(item) {
 
 // 4. Percorre a lista de itens e coloca todos os cards na tela
 function mostrarItens(itens) {
+  // lista vazia: mostra um aviso no lugar dos cards
+  if (itens.length === 0) {
+    listaItens.innerHTML = '<p class="sem-resultados">Nenhum item encontrado. 😕</p>';
+    return;
+  }
+
   let html = '';
 
   itens.forEach(function (item) {
@@ -44,7 +54,35 @@ function filtrarPorCategoria(categoria) {
   });
 }
 
-// 6. Faz cada botão de categoria "escutar" o clique
+// 6. Devolve só os itens cujo nome ou descrição contém o texto buscado
+function filtrarPorBusca(itens, texto) {
+  if (texto === '') {
+    return itens;
+  }
+
+  return itens.filter(function (item) {
+    const nome = item.nome.toLowerCase();
+    const descricao = item.descricao.toLowerCase();
+    return nome.includes(texto) || descricao.includes(texto);
+  });
+}
+
+// Redesenha a lista de acordo com o estado atual (categoria + busca)
+function atualizarLista() {
+  const daCategoria = filtrarPorCategoria(categoriaAtual);
+  const resultado = filtrarPorBusca(daCategoria, textoBusca);
+  mostrarItens(resultado);
+}
+
+// Faz o campo de busca "escutar" cada letra digitada
+const campoBusca = document.getElementById('campo-busca');
+
+campoBusca.addEventListener('input', function () {
+  textoBusca = campoBusca.value.trim().toLowerCase();
+  atualizarLista();
+});
+
+// 7. Faz cada botão de categoria "escutar" o clique
 const botoesCategoria = document.querySelectorAll('.categoria');
 
 botoesCategoria.forEach(function (botao) {
@@ -56,11 +94,11 @@ botoesCategoria.forEach(function (botao) {
     // ...e coloca só no botão clicado
     botao.classList.add('ativa');
 
-    // lê o data-categoria do botão e mostra os itens filtrados
-    const categoria = botao.dataset.categoria;
-    mostrarItens(filtrarPorCategoria(categoria));
+    // guarda a categoria escolhida e redesenha
+    categoriaAtual = botao.dataset.categoria;
+    atualizarLista();
   });
 });
 
-// 7. Começa tudo: mostra o cardápio completo
-mostrarItens(itensCardapio);
+// 8. Começa tudo: mostra o cardápio completo
+atualizarLista();
