@@ -83,7 +83,7 @@ Cada versão é pequena, testável e termina com um commit feito pelo Matheus.
       "Mesa 04" no cabeçalho.
 - [x] **v0.8 Pedido pelo WhatsApp:** montar a mensagem (mesa, itens, quantidades,
       total) e abrir `https://wa.me/<numero>?text=...` com `encodeURIComponent`.
-- [ ] **v0.9 Modo retirada:** sem `?mesa=` na URL, o painel pede o nome do cliente
+- [x] **v0.9 Modo retirada:** sem `?mesa=` na URL, o painel pede o nome do cliente
       e a mensagem vira "Retirada no balcão: <nome>". Com mesa, nada muda.
 - [ ] **v1.0 Portfólio:** README com prints, revisão geral (acessibilidade e
       celular), link no site harada-tecnologias.
@@ -148,9 +148,9 @@ Cada versão é pequena, testável e termina com um commit feito pelo Matheus.
 - `css/style.css`: variáveis de cor, cabeçalho, grade de cards (CSS Grid `auto-fill`
   + `minmax(250px, 1fr)`), botões-pílula de categoria, campo de busca, botão
   flutuante, painel do carrinho e pílula da mesa (seções numeradas de 1 a 14).
-- Fotos vêm do Unsplash por link. Antes de usar uma foto nova, conferir se ela
-  carrega (já houve link quebrado) e se combina com o item. Ideia para a v1.0:
-  baixar as fotos para uma pasta `img/`.
+- Fotos ficam no projeto, em `img/itens/<nome-do-item>.webp` (600px, baixadas do
+  Unsplash, licença livre). Antes de usar uma foto nova, conferir se ela combina
+  com o item (a versão React tinha várias fotos trocadas).
 - **v0.8 concluída (WhatsApp):**
   - `WHATSAPP_NUMERO` no topo do `app.js` (número do Matheus, escolhido por ele
     sabendo que fica público).
@@ -159,4 +159,8 @@ Cada versão é pequena, testável e termina com um commit feito pelo Matheus.
     `window.open`. O carrinho **não** é esvaziado após o envio (não dá para saber
     se o cliente enviou de fato).
   - `formatarMesa(numero)` → "Mesa 04" (usada no cabeçalho e na mensagem).
-- Próximo passo: **v0.9** (modo retirada), depois **v1.0** (portfólio).
+- **v0.9 concluída (retirada):** sem mesa, o bloco `#dados-retirada` aparece no
+  painel (com itens). O botão Enviar exige `#nome-cliente` preenchido (`trim`):
+  se estiver vazio, mostra `#erro-nome` e dá `focus()` no campo. A mensagem traz
+  "🛍️ Retirada no balcão: <nome>". O nome só vai para a mensagem, nunca para o HTML.
+- Próximo passo: **v1.0** (portfólio).
