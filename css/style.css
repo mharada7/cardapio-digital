@@ -53,7 +53,7 @@ header p {
 main {
   max-width: 1100px;  /* em telas grandes, o conteúdo não se espalha demais */
   margin: 0 auto;     /* centraliza na horizontal */
-  padding: 24px 16px 96px;  /* embaixo, espaço extra para o botão flutuante não cobrir o último card */
+  padding: 24px 16px;
 }
 
 /* ===== 6. Grade de cards ===== */
@@ -434,4 +434,37 @@ main {
   margin-top: 8px;
   color: #b3261e;  /* vermelho escuro: legível sobre o branco */
   font-size: 0.9rem;
+}
+
+/* ===== 17. Rodapé: assinatura da Harada Tecnologias ===== */
+.rodape {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 16px 96px;  /* embaixo, espaço extra para o botão flutuante não cobrir o rodapé */
+  border-top: 1px solid rgba(108, 57, 25, 0.15);
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--cor-marrom);
+}
+
+/* Nome da marca em destaque */
+.rodape-marca {
+  color: var(--cor-marrom);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  white-space: nowrap;  /* o nome da marca nunca quebra no meio */
+}
+
+.rodape-marca:hover {
+  text-decoration: underline;
+}
+
+/* O ® pequeno e elevado, colado ao nome, como manda a tipografia */
+.marca-registrada {
+  margin-left: 1px;
+  font-size: 0.65em;
+  font-weight: 400;
+  vertical-align: super;  /* sobe o símbolo, como um expoente */
+  line-height: 0;         /* impede que o símbolo elevado aumente a altura da linha */
 }

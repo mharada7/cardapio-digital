@@ -89,6 +89,7 @@ Cada versão é pequena, testável e termina com um commit feito pelo Matheus.
       README com prints, cartão no site harada-tecnologias (link `?mesa=7`).
 
 ### Extras (v1.x, em qualquer ordem)
+- [x] v1.1 Assinatura "Cardápio digital desenvolvido por Harada Tecnologias" no rodapé
 - [ ] Modo escuro (botão + preferência do sistema + `localStorage`)
 - [ ] Gerador de QR Code por mesa (biblioteca via CDN)
 - [ ] Filtros alimentares: Vegano, Sem Glúten, Sem Lactose, Mais Pedidos
@@ -173,4 +174,14 @@ Cada versão é pequena, testável e termina com um commit feito pelo Matheus.
     `?mesa=7`: o foco do Matheus é o cardápio visto na mesa pelo QR Code.
 - Prints de celular: Edge headless + iframe de 390x844 (o headless tem largura
   mínima maior que a de um celular).
+- **v1.1:** `<footer class="rodape">` numa linha: "Desenvolvido por Harada
+  Tecnologias®", com link para `harada-tecnologias/#cardapios` (leva quem se
+  interessar direto à oferta de cardápios). `.rodape-marca` = nome em negrito +
+  `.marca-registrada` (® pequeno, `vertical-align: super`). Sem ícone: o Matheus
+  testou o `</>` e preferiu tirar. Também há `<meta name="author">`.
+  - Texto exato definido pelo Matheus, com **®** por escolha dele, informado de que
+    ® indica registro concedido no INPI (sem registro, o adequado seria ™).
+    Não alterar sem perguntar.
+  O espaço para o botão flutuante (96px) agora fica no rodapé, e não no `main`.
+  **Manter essa assinatura em todo cardápio feito para clientes.**
 - Próximo passo: escolher entre os extras (v1.x).
