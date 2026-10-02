@@ -300,7 +300,44 @@ painelCarrinho.addEventListener('click', function (evento) {
   }
 });
 
-// 10. Começa tudo: recupera o carrinho salvo e mostra o cardápio completo
+// 10. Mesa: lida da URL (ex.: ?mesa=4)
+// Devolve o número da mesa, ou null se não houver mesa válida na URL
+function lerMesaDaUrl() {
+  const parametros = new URLSearchParams(window.location.search);
+  const texto = parametros.get('mesa');  // "4", "banana"... ou null se não existir
+
+  if (texto === null) {
+    return null;
+  }
+
+  const numero = Number(texto);
+
+  // só aceita números inteiros de 1 a 99 ("banana", "-5" e "2.5" são recusados)
+  if (!Number.isInteger(numero) || numero < 1 || numero > 99) {
+    return null;
+  }
+
+  return numero;
+}
+
+const numeroMesa = lerMesaDaUrl();
+
+// Mostra "📍 Mesa 04" no cabeçalho (ou deixa escondido, se não houver mesa)
+function mostrarMesa() {
+  const elementoMesa = document.getElementById('mesa');
+
+  if (numeroMesa === null) {
+    elementoMesa.hidden = true;
+    return;
+  }
+
+  // textContent (e não innerHTML): o que vem da URL nunca vira HTML
+  elementoMesa.textContent = '📍 Mesa ' + String(numeroMesa).padStart(2, '0');
+  elementoMesa.hidden = false;
+}
+
+// 11. Começa tudo: recupera o carrinho salvo e mostra o cardápio completo
+mostrarMesa();
 carregarCarrinho();
 atualizarContador();
 atualizarLista();

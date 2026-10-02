@@ -74,8 +74,9 @@ Cada versão é pequena, testável e termina com um commit feito pelo Matheus.
 - [x] **v0.5 Carrinho básico:** botão "Adicionar" em cada card, botão flutuante
       com contador (no lugar do contador no cabeçalho) e painel `<dialog>` com
       itens, quantidades (+/−) e total.
-- [ ] **v0.6 Carrinho persistente:** salvar no `localStorage` (o carrinho não some ao
-      recarregar a página), botão de remover item e de esvaziar o carrinho.
+- [x] **v0.6 Carrinho persistente:** salvar no `localStorage` (o carrinho não some ao
+      recarregar a página) e botão de esvaziar o carrinho (remover um item já é
+      feito pelo botão −).
 
 ### Pedido
 - [ ] **v0.7 Mesa via URL:** ler `?mesa=` com `URLSearchParams` e mostrar
@@ -124,10 +125,21 @@ Cada versão é pequena, testável e termina com um commit feito pelo Matheus.
     "Adicionar", com `data-id`) e outro em `#lista-carrinho` (botões +/−, com
     `data-acao` + `data-id`). `Number(dataset.id)` é obrigatório (o dataset é texto).
   - Regra: depois de mudar o estado, sempre redesenhar a tela.
+- **v0.6 concluída (persistência):**
+  - Toda mudança no carrinho chama `carrinhoMudou()` (= `salvarCarrinho()` +
+    `atualizarContador()`).
+  - `localStorage`, chave `CHAVE_CARRINHO = 'cafe-aconchego-carrinho'`, com
+    `JSON.stringify`/`JSON.parse` dentro de `try/catch`. `carregarCarrinho()`
+    descarta linhas cujo `id` não existe mais no cardápio.
+  - Ao iniciar: `carregarCarrinho()` → `atualizarContador()` → `atualizarLista()`.
+  - Botão `#esvaziar-carrinho` no painel, com `confirm()`; fica escondido com o
+    carrinho vazio.
+  - Elementos com `display` próprio que usam `hidden` precisam da regra
+    `[hidden] { display: none; }` no CSS.
 - `css/style.css`: variáveis de cor, cabeçalho, grade de cards (CSS Grid `auto-fill`
   + `minmax(250px, 1fr)`), botões-pílula de categoria, campo de busca, botão
-  flutuante e painel do carrinho (seções numeradas de 1 a 12).
+  flutuante e painel do carrinho (seções numeradas de 1 a 13).
 - Fotos vêm do Unsplash por link. Antes de usar uma foto nova, conferir se ela
   carrega (já houve link quebrado) e se combina com o item. Ideia para a v1.0:
   baixar as fotos para uma pasta `img/`.
-- Próximo passo: **v0.6** (carrinho persistente com `localStorage`).
+- Próximo passo: **v0.7** (número da mesa via `?mesa=`).

@@ -357,3 +357,19 @@ main {
 .botao-esvaziar[hidden] {
   display: none;
 }
+
+/* ===== 14. Número da mesa no cabeçalho ===== */
+.mesa {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 4px 14px;
+  border-radius: 999px;
+  background-color: var(--cor-destaque);
+  color: var(--cor-texto);
+  font-weight: 600;
+}
+
+/* De novo a regra do hidden: o "display: inline-block" venceria o atributo */
+.mesa[hidden] {
+  display: none;
+}
