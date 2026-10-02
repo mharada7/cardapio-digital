@@ -39,6 +39,27 @@
     <section id="lista-itens"></section>
   </main>
 
+  <!-- Botão flutuante do carrinho: começa escondido (hidden) e aparece quando há itens -->
+  <button type="button" id="botao-carrinho" class="botao-carrinho" hidden>
+    🛒 Ver carrinho <span id="contador-carrinho" class="contador">0</span>
+  </button>
+
+  <!-- Painel do carrinho: <dialog> é uma janela que abre por cima da página -->
+  <dialog id="painel-carrinho" class="painel-carrinho" aria-labelledby="titulo-carrinho">
+    <div class="painel-cabecalho">
+      <h2 id="titulo-carrinho">🛒 Seu pedido</h2>
+      <button type="button" id="fechar-carrinho" class="botao-fechar" aria-label="Fechar carrinho">✕</button>
+    </div>
+
+    <!-- As linhas do carrinho serão criadas aqui pelo JavaScript -->
+    <ul id="lista-carrinho" class="lista-carrinho"></ul>
+
+    <div class="painel-total">
+      <span>Total</span>
+      <strong id="total-carrinho">R$ 0,00</strong>
+    </div>
+  </dialog>
+
   <script src="js/dados.js"></script>
   <script src="js/app.js"></script>
 </body>
