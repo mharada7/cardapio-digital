@@ -58,7 +58,7 @@ Cada versão é pequena, testável e termina com um commit feito pelo Matheus.
 - [x] **v0.1 Listar itens:** `index.html` + `dados.js` com um array de 4 a 6 itens
       (nome, descrição, preço, imagem, categoria). O `app.js` percorre o array e
       cria os cards na tela. Preço formatado em R$.
-- [ ] **v0.2 Visual e publicação:** cabeçalho com o nome do café, cards bonitos e
+- [x] **v0.2 Visual e publicação:** cabeçalho com o nome do café, cards bonitos e
       responsivos (grid), cores e fontes da identidade. `git init`, criar o
       repositório no GitHub e **publicar no GitHub Pages**, para que cada versão
       seguinte já fique no ar.
@@ -93,7 +93,13 @@ Cada versão é pequena, testável e termina com um commit feito pelo Matheus.
 - [ ] Simulação de status do pedido: Recebido → Em preparo → Pronto
 
 ## Estado atual
-- **v0.1 concluída:** `index.html`, `js/dados.js` (6 itens) e `js/app.js`
-  (`mostrarItens(itens)` desenha os cards com `forEach` + template string).
-- Ainda **sem CSS** e ainda **não é um repositório git**.
-- Próximo passo: **v0.2** (git + primeiro commit, depois CSS e GitHub Pages).
+- **v0.2 concluída e publicada:** https://mharada7.github.io/cardapio-digital/
+  (repositório: https://github.com/mharada7/cardapio-digital, branch `main`,
+  GitHub Pages servindo a raiz da `main`).
+- `js/dados.js` tem 6 itens; `js/app.js` usa `mostrarItens(itens)` para desenhar
+  os cards (`forEach` + template string); `css/style.css` tem as variáveis de cor,
+  o cabeçalho e a grade de cards (CSS Grid `auto-fill` + `minmax(250px, 1fr)`).
+- Fotos vêm do Unsplash por link. Antes de usar uma foto nova, conferir se ela
+  carrega (já houve link quebrado) e se combina com o item. Ideia para a v1.0:
+  baixar as fotos para uma pasta `img/`.
+- Próximo passo: **v0.3** (categorias).
