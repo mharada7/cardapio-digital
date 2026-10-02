@@ -85,8 +85,8 @@ Cada versão é pequena, testável e termina com um commit feito pelo Matheus.
       total) e abrir `https://wa.me/<numero>?text=...` com `encodeURIComponent`.
 - [x] **v0.9 Modo retirada:** sem `?mesa=` na URL, o painel pede o nome do cliente
       e a mensagem vira "Retirada no balcão: <nome>". Com mesa, nada muda.
-- [ ] **v1.0 Portfólio:** README com prints, revisão geral (acessibilidade e
-      celular), link no site harada-tecnologias.
+- [x] **v1.0 Portfólio:** fotos locais em WebP, favicon, descrição e Open Graph,
+      README com prints, cartão no site harada-tecnologias (link `?mesa=7`).
 
 ### Extras (v1.x, em qualquer ordem)
 - [ ] Modo escuro (botão + preferência do sistema + `localStorage`)
@@ -163,4 +163,14 @@ Cada versão é pequena, testável e termina com um commit feito pelo Matheus.
   painel (com itens). O botão Enviar exige `#nome-cliente` preenchido (`trim`):
   se estiver vazio, mostra `#erro-nome` e dá `focus()` no campo. A mensagem traz
   "🛍️ Retirada no balcão: <nome>". O nome só vai para a mensagem, nunca para o HTML.
-- Próximo passo: **v1.0** (portfólio).
+- **v1.0 concluída e no portfólio:**
+  - Fotos locais em `img/itens/` (WebP).
+  - `img/favicon.svg`, `meta description`, `theme-color` e tags Open Graph, com
+    `img/compartilhar.jpg` (1200x630, URL absoluta no `og:image`).
+  - `README.md` com prints em `img/readme/` (o print do WhatsApp foi recortado para
+    não expor conversas pessoais).
+  - Cartão no site harada-tecnologias (`C:\ManausTecnologias\site`), com link
+    `?mesa=7`: o foco do Matheus é o cardápio visto na mesa pelo QR Code.
+- Prints de celular: Edge headless + iframe de 390x844 (o headless tem largura
+  mínima maior que a de um celular).
+- Próximo passo: escolher entre os extras (v1.x).
